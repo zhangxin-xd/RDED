@@ -60,7 +60,7 @@ parser.add_argument('--data_dir', default='/home/st2/Model_Compression', type = 
                         help='whether to store best images')
 parser.add_argument('--batch_size', default=300, type = float,
                         help='whether to store best images')
-parser.add_argument('--coreset_ratio', default=0.006, type = float,
+parser.add_argument('--coreset_ratio', default=1, type = float,
                         help='whether to store best images')
 parser.add_argument('--crop_num', default=5, type = int,
                         help='whether to store best images')
@@ -93,7 +93,7 @@ coreset_ratio = args.coreset_ratio
 total_numbers = len(trainset)
 # 每500个数中随机取300个
 batch_size = 500
-sample_size = int(coreset_ratio*total_numbers)
+sample_size = int(coreset_ratio*batch_size)
 # 生成所有数的索引
 all_indices = list(range(total_numbers))
 # 遍历每500个数的组
