@@ -58,7 +58,7 @@ parser.add_argument('--dataset', default='cifar100', type = str,
                         help='whether to store best images')
 parser.add_argument('--data_dir', default='/home/st2/Model_Compression', type = str,
                         help='whether to store best images')
-parser.add_argument('--batch_size', default=300, type = float,
+parser.add_argument('--batch_size', default=500, type = float,
                         help='whether to store best images')
 parser.add_argument('--coreset_ratio', default=1, type = float,
                         help='whether to store best images')
@@ -92,16 +92,16 @@ trainset.targets = np.array(trainset.targets)[sorted_indices]
 coreset_ratio = args.coreset_ratio
 total_numbers = len(trainset)
 # 每500个数中随机取300个
-batch_size = 500
-sample_size = int(coreset_ratio*batch_size)
+class_size = 500
+sample_size = int(coreset_ratio*class_size)
 # 生成所有数的索引
 all_indices = list(range(total_numbers))
 # 遍历每500个数的组
 selected_indices = []
 for i in range(0, total_numbers, batch_size):
     # 在当前组中随机选择300个索引
-    batch_indices = random.sample(range(i, min(i + batch_size, total_numbers)), sample_size)
-    selected_indices.extend(batch_indices)
+    class_indices = random.sample(range(i, min(i + class_size, total_numbers)), sample_size)
+    selected_indices.extend(class_indices)
 
 trainset = torch.utils.data.Subset(trainset, selected_indices)
 print(len(trainset))
